@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet } from 'react-native';
+import PhotosComponent from '../screens/PhotosComponent';
 
 
 const Stack =createStackNavigator();
@@ -31,6 +32,11 @@ const HomeStack = () => {
             name="Welcome"
             component={WelcomeSlide}
             options={{ headerShown: false }} // Esto oculta el encabezado
+        />
+        <Stack.Screen
+            name="PhotosComponent"
+            component={PhotosComponent}
+            options={{ title: "PhotosComponent" }} // Personaliza el título del encabezado
         />
     </Stack.Navigator>
   );

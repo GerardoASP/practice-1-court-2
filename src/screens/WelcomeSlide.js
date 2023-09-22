@@ -1,13 +1,18 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Button, ImageBackground, StyleSheet, Text, View } from 'react-native'
-import Swiper from 'react-native-swiper';
 const WelcomeSlide = () => {
   const navigation = useNavigation()
 
 
+  const goToPhotosComponent = () =>{
+    navigation.navigate("PhotosComponent");
+  }
+
   return (
-    <Text>No hay error</Text>
+    <View>
+      <Button title="PhotosComponent" onPress={goToPhotosComponent}/>
+    </View>
   )
 }
 
