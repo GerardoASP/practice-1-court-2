@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet } from 'react-native';
-
+import SwitchCheckbox from '../screens/SwitchCheckbox';
 
 const Stack =createStackNavigator();
 
@@ -30,6 +30,11 @@ const HomeStack = () => {
         <Stack.Screen
             name="Welcome"
             component={WelcomeSlide}
+            options={{ headerShown: false }} // Esto oculta el encabezado
+        />
+        <Stack.Screen
+            name="SwitchCheckbox"
+            component={SwitchCheckbox}
             options={{ headerShown: false }} // Esto oculta el encabezado
         />
     </Stack.Navigator>

@@ -5,9 +5,15 @@ import Swiper from 'react-native-swiper';
 const WelcomeSlide = () => {
   const navigation = useNavigation()
 
-
+  const goToSwitchCheckbox = () =>{
+    navigation.navigate("SwitchCheckbox");
+  }
   return (
-    <Text>No hay error</Text>
+    <Swiper>
+      <View>
+      <Button title="MirarSwitchCheckbox" onPress={goToSwitchCheckbox}/>
+      </View>
+    </Swiper>
   )
 }
 
