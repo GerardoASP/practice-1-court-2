@@ -5,13 +5,19 @@ const WelcomeSlide = () => {
   const navigation = useNavigation()
 
 
+
   const goToPhotosComponent = () =>{
     navigation.navigate("PhotosComponent");
+  }
+  
+  const goToSwitchCheckbox = () =>{
+    navigation.navigate("SwitchCheckbox");
   }
 
   return (
     <View>
       <Button title="PhotosComponent" onPress={goToPhotosComponent}/>
+      <Button title="MirarSwitchCheckbox" onPress={goToSwitchCheckbox}/>
     </View>
   )
 }
