@@ -1,19 +1,24 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Button, ImageBackground, StyleSheet, Text, View } from 'react-native'
-import Swiper from 'react-native-swiper';
 const WelcomeSlide = () => {
   const navigation = useNavigation()
 
+
+
+  const goToPhotosComponent = () =>{
+    navigation.navigate("PhotosComponent");
+  }
+  
   const goToSwitchCheckbox = () =>{
     navigation.navigate("SwitchCheckbox");
   }
+
   return (
-    <Swiper>
-      <View>
+    <View>
+      <Button title="PhotosComponent" onPress={goToPhotosComponent}/>
       <Button title="MirarSwitchCheckbox" onPress={goToSwitchCheckbox}/>
-      </View>
-    </Swiper>
+    </View>
   )
 }
 

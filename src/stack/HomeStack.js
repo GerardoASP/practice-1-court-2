@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet } from 'react-native';
+import PhotosComponent from '../screens/PhotosComponent';
 import SwitchCheckbox from '../screens/SwitchCheckbox';
 
 const Stack =createStackNavigator();
@@ -32,6 +33,12 @@ const HomeStack = () => {
             component={WelcomeSlide}
             options={{ headerShown: false }} // Esto oculta el encabezado
         />
+        <Stack.Screen
+            name="PhotosComponent"
+            component={PhotosComponent}
+            options={{ title: "PhotosComponent" }} // Personaliza el título del encabezado
+        />
+
         <Stack.Screen
             name="SwitchCheckbox"
             component={SwitchCheckbox}
