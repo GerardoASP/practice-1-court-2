@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import WelcomeSlide from './src/screens/WelcomeSlide';
 import SwitchCheckbox from './src/screens/SwitchCheckbox';
+import PresentationComponent from './src/screens/PresentationComponent';
+import PathComponent from './src/screens/PathComponent';
 
 const Stack = createStackNavigator()
 
@@ -15,6 +17,8 @@ export default function App() {
         <Stack.Screen name = "Welcome" component={WelcomeSlide}/>
         <Stack.Screen name = "PhotosComponent" component={PhotosComponent}/>
         <Stack.Screen name = "SwitchCheckbox" component={SwitchCheckbox}/>
+        <Stack.Screen name = "PresentationComponent" component={PresentationComponent}/>
+        <Stack.Screen name = "PathComponent" component={PathComponent}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

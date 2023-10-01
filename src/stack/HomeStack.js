@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet } from 'react-native';
 import PhotosComponent from '../screens/PhotosComponent';
 import SwitchCheckbox from '../screens/SwitchCheckbox';
+import PresentationComponent from '../screens/PresentationComponent';
+import PathComponent from '../screens/PathComponent';
 
 const Stack =createStackNavigator();
 
@@ -42,6 +44,16 @@ const HomeStack = () => {
         <Stack.Screen
             name="SwitchCheckbox"
             component={SwitchCheckbox}
+            options={{ headerShown: false }} // Esto oculta el encabezado
+        />
+        <Stack.Screen
+            name="PresentationComponent"
+            component={PresentationComponent}
+            options={{ headerShown: false }} // Esto oculta el encabezado
+        />
+        <Stack.Screen
+            name="PathComponent"
+            component={PathComponent}
             options={{ headerShown: false }} // Esto oculta el encabezado
         />
     </Stack.Navigator>
