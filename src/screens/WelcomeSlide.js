@@ -14,10 +14,15 @@ const WelcomeSlide = () => {
     navigation.navigate("SwitchCheckbox");
   }
 
+  const goToRegisterForm = () =>{
+    navigation.navigate("RegisterForm");
+  }
+
   return (
     <View>
       <Button title="PhotosComponent" onPress={goToPhotosComponent}/>
       <Button title="MirarSwitchCheckbox" onPress={goToSwitchCheckbox}/>
+      <Button title="RegisterForm" onPress={goToRegisterForm}/>
     </View>
   )
 }
