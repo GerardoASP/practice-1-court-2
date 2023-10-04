@@ -73,7 +73,7 @@ const RegisterForm = () => {
         <View style={styles.textInputContainer}>
             <TextInput
                 style={styles.input}
-                label="Correo Electrónico"
+                label="Correo Electronico"
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
