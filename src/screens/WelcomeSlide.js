@@ -20,12 +20,21 @@ const WelcomeSlide = () => {
 
   const goToLoginForm = () =>{
     navigation.navigate("LoginForm");
+    
+  const goToPresentationComponent = () =>{
+    navigation.navigate("PresentationComponent");
+  }
+
+  const goToPathComponent = () =>{
+    navigation.navigate("PathComponent");
   }
 
   return (
     <View>
       <Button title="PhotosComponent" onPress={goToPhotosComponent}/>
       <Button title="MirarSwitchCheckbox" onPress={goToSwitchCheckbox}/>
+      <Button title="MirarPresentationComponent" onPress={goToPresentationComponent}/>
+      <Button title="MirarPathComponent" onPress={goToPathComponent}/>
     </View>
   )
 }

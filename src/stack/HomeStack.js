@@ -5,6 +5,8 @@ import PhotosComponent from '../screens/PhotosComponent';
 import SwitchCheckbox from '../screens/SwitchCheckbox';
 import RegisterForm from '../screens/RegisterForm';
 import LoginForm from '../screens/LoginForm';
+import PresentationComponent from '../screens/PresentationComponent';
+import PathComponent from '../screens/PathComponent';
 
 const Stack =createStackNavigator();
 
@@ -55,6 +57,16 @@ const HomeStack = () => {
             name="LoginForm"
             component={LoginForm}
             options={{ title: "LoginForm" }} // Personaliza el título del encabezado
+        />
+        <Stack.Screen
+            name="PresentationComponent"
+            component={PresentationComponent}
+            options={{ headerShown: false }} // Esto oculta el encabezado
+        />
+        <Stack.Screen
+            name="PathComponent"
+            component={PathComponent}
+            options={{ headerShown: false }} // Esto oculta el encabezado
         />
     </Stack.Navigator>
   );
