@@ -20,6 +20,7 @@ const WelcomeSlide = () => {
 
   const goToLoginForm = () =>{
     navigation.navigate("LoginForm");
+  }
     
   const goToPresentationComponent = () =>{
     navigation.navigate("PresentationComponent");
