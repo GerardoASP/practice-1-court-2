@@ -26,8 +26,6 @@ const WelcomeSlide = () => {
     <View>
       <Button title="PhotosComponent" onPress={goToPhotosComponent}/>
       <Button title="MirarSwitchCheckbox" onPress={goToSwitchCheckbox}/>
-      <Button title="RegisterForm" onPress={goToRegisterForm}/>
-      <Button title="LoginForm" onPress={goToLoginForm}/>
     </View>
   )
 }
