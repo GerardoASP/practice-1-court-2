@@ -4,6 +4,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 import PhotosComponent from '../screens/PhotosComponent';
 import SwitchCheckbox from '../screens/SwitchCheckbox';
 import RegisterForm from '../screens/RegisterForm';
+import LoginForm from '../screens/LoginForm';
 
 const Stack =createStackNavigator();
 
@@ -49,6 +50,11 @@ const HomeStack = () => {
             name="RegisterForm"
             component={RegisterForm}
             options={{ title: "RegisterForm" }} // Personaliza el título del encabezado
+        />
+        <Stack.Screen
+            name="LoginForm"
+            component={LoginForm}
+            options={{ title: "LoginForm" }} // Personaliza el título del encabezado
         />
     </Stack.Navigator>
   );

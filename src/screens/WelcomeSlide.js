@@ -18,11 +18,16 @@ const WelcomeSlide = () => {
     navigation.navigate("RegisterForm");
   }
 
+  const goToLoginForm = () =>{
+    navigation.navigate("LoginForm");
+  }
+
   return (
     <View>
       <Button title="PhotosComponent" onPress={goToPhotosComponent}/>
       <Button title="MirarSwitchCheckbox" onPress={goToSwitchCheckbox}/>
       <Button title="RegisterForm" onPress={goToRegisterForm}/>
+      <Button title="LoginForm" onPress={goToLoginForm}/>
     </View>
   )
 }

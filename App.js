@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import WelcomeSlide from './src/screens/WelcomeSlide';
 import SwitchCheckbox from './src/screens/SwitchCheckbox';
 import RegisterForm from './src/screens/RegisterForm';
+import LoginForm from './src/screens/LoginForm';
 
 const Stack = createStackNavigator()
 
@@ -17,6 +18,7 @@ export default function App() {
         <Stack.Screen name = "PhotosComponent" component={PhotosComponent}/>
         <Stack.Screen name = "SwitchCheckbox" component={SwitchCheckbox}/>
         <Stack.Screen name = "RegisterForm" component={RegisterForm}/>
+        <Stack.Screen name = "LoginForm" component={LoginForm}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

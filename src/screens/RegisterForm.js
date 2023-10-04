@@ -1,10 +1,12 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useState, useEffect } from 'react';
-import { Button, StyleSheet, Text, TextInput, Switch, View } from 'react-native';
+import { Button, StyleSheet, Text, Switch, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Image } from 'react-native';
-import { Card, IconButton } from 'react-native-paper';
+import { Card, IconButton, Icon, TextInput } from 'react-native-paper';
 import Checkbox from 'expo-checkbox';
 import axios from 'axios';
+
 
 const RegisterForm = () => {
   const [firstname, setFirstname] = useState('');
@@ -13,6 +15,11 @@ const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [estaActivo, setEstaActivo] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const navigation = useNavigation();
+
+  const goToLoginForm = () =>{
+    navigation.navigate("LoginForm");
+  }
 
   const handleSwitchChange = () => {
     setEstaActivo(!estaActivo);
@@ -23,7 +30,7 @@ const RegisterForm = () => {
   };
 
   const handleCancel = () => {
-    
+    //navigation.navigate('');
   };
 
   const handleSubmit = async () => {
@@ -37,6 +44,7 @@ const RegisterForm = () => {
     try {
       const response = await axios.post('http://mantenimientoandino.co:3000/api/v1/auth/register', data);
       console.log(response.data);
+      navigation.navigate('LoginForm');
     } catch (error) {
       console.error(error);
     }
@@ -57,26 +65,26 @@ const RegisterForm = () => {
         <Text style={styles.header}>Registro</Text>
         <TextInput
           style={styles.input}
-          placeholder="Nombre(s)"
+          label="Nombre(s)"
           value={firstname}
           onChangeText={setFirstname}
         />
         <TextInput
           style={styles.input}
-          placeholder="Apellidos"
+          label="Apellidos"
           value={lastname}
           onChangeText={setLastname}
         />
         <TextInput
           style={styles.input}
-          placeholder="Correo Electronico"
+          label="Correo Electrónico"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
         />
         <TextInput
           style={styles.input}
-          placeholder="Contraseña"
+          label="Contraseña"
           value={current_password}
           onChangeText={setCurrentPassword}
           secureTextEntry={true}
