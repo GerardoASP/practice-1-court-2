@@ -14,6 +14,13 @@ const WelcomeSlide = () => {
     navigation.navigate("SwitchCheckbox");
   }
 
+  const goToRegisterForm = () =>{
+    navigation.navigate("RegisterForm");
+  }
+
+  const goToLoginForm = () =>{
+    navigation.navigate("LoginForm");
+    
   const goToPresentationComponent = () =>{
     navigation.navigate("PresentationComponent");
   }
