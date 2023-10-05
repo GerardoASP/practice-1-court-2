@@ -4,36 +4,58 @@ import { View, Image, FlatList, Text, TouchableOpacity, StyleSheet, Dimensions }
 import logoU from '../../assets/personal_images/recurso_26logo.jpg'
 import logoG from '../../assets/personal_images/281769.png'
 import logoO from '../../assets/personal_images/Outlook_2013_23477.png'
+import { useNavigation } from '@react-navigation/native';
+
 const PathComponent = () => {
+  const navigation = useNavigation();
+
+  const login = () => {
+    navigation.navigate('LoginForm');
+  };
+
+  const register = () => {
+    navigation.navigate('RegisterForm');
+  };
+
   return (
     <View>
         <Image style={styles.principal_image} source={logoU}/>
-        <Text style={styles.simple_text}>¿Que deseas hacer?</Text>
-        <View style={styles.buttonsContainer}>
-            <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.text_button}>
-              <Text >Iniciar Sesión</Text>
+        <View style={styles.container}>
+          <Text style={styles.simple_text}>¿Que deseas hacer?</Text>
+          <View style={styles.buttonsContainer}>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.text_button}>
+                  <Text >Recorrido en la App</Text>
+                </TouchableOpacity>
+                {/* <Button title="Iniciar Sesión" onPress={login} /> */}
+              </View>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity onPress={() => {navigation.navigate("LoginForm");}} style={styles.text_button}>
+                  <Text >Iniciar sesión</Text>
+                </TouchableOpacity>
+                {/* <Button title="Iniciar Sesión" onPress={login} /> */}
+              </View>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity onPress={() => {navigation.navigate("RegisterForm");}} style={styles.button}>
+                  <Text style={styles.text_button}>Registrarme</Text>
+                </TouchableOpacity>
+                {/* <Button title="Registrarme" onPress={register} /> */}
+              </View>
+          </View>
+          <View style={styles.touchablesContainer}>
+            <TouchableOpacity onPress={() => console.log('Iniciando sesión con Gmail...')}>
+              <Image
+                source={{uri: "https://logos-world.net/wp-content/uploads/2020/11/Gmail-Logo.png"}}
+                style={{ width: 70, height: 50 }}
+              />
             </TouchableOpacity>
-            </View>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.text_button}>Registrarme</Text>
-              </TouchableOpacity>
-            </View>
-        </View>
-        <View style={styles.touchablesContainer}>
-          <TouchableOpacity onPress={() => console.log('Botón presionado')}>
-            <Image
-              source={logoG}
-              style={{ width: 50, height: 50 }}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => console.log('Botón presionado')}>
-            <Image
-              source={logoO}
-              style={{ width: 50, height: 50 }}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => console.log('Iniciando sesión con Outlook...')}>
+              <Image
+                source={{uri: "https://1000marcas.net/wp-content/uploads/2021/08/Outlook-Logo.png"}}
+                style={{ width: 50, height: 50 }}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
     </View>
   )
@@ -56,7 +78,9 @@ const styles = StyleSheet.create({
     left:105,
     top:150,
     position:'absolute',
-    width:179
+    width:179,
+    fontWeight: 'bold',
+    fontSize: 30
   },
   buttonsContainer: {
     flexDirection: 'column',
@@ -78,8 +102,22 @@ const styles = StyleSheet.create({
   touchablesContainer:{
     flexDirection:'row',
     justifyContent: 'space-between',
-    paddingLeft:130,
-    paddingRight:130,
+    paddingTop:70,
+  },
+  container:{
+    flexDirection:'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  imageContainer: {
+    flexDirection: 'row',
+    paddingTop: 30,
+    justifyContent: 'center'
+  },
+  gmailImage: {
+    width: 70,
+    height: 50,
+    marginBottom: 20,
   }
 
 })

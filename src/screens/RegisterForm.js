@@ -2,7 +2,7 @@ import { Picker } from '@react-native-picker/picker';
 import React, { useState, useEffect } from 'react';
 import { Button, StyleSheet, Text, Switch, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import { Card, IconButton, Icon, TextInput } from 'react-native-paper';
 import Checkbox from 'expo-checkbox';
 import axios from 'axios';
@@ -30,7 +30,7 @@ const RegisterForm = () => {
   };
 
   const handleCancel = () => {
-    //navigation.navigate('');
+    navigation.navigate('PathComponent');
   };
 
   const handleSubmit = async () => {
@@ -113,10 +113,15 @@ const RegisterForm = () => {
 
         <View style={styles.buttonContainer}>
           <View style={styles.buttonWrapper}>
-            <Button title="Aceptar" onPress={handleSubmit} />
+            <TouchableOpacity onPress={handleSubmit} style={styles.text_button}>
+              <Text >Aceptar</Text>
+            </TouchableOpacity>
+            {/* <Button title="Aceptar" onPress={handleSubmit} /> */}
           </View>
           <View style={styles.buttonWrapper}>
-            <Button title="Cancelar" onPress={handleCancel} />
+            <TouchableOpacity onPress={handleCancel} style={styles.text_button}>
+              <Text>Cancelar</Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -132,6 +137,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 20,
   },
+  text_button:{
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    textAlign:'center',
+  },
   card: {
     marginHorizontal: 10,
     padding: 20,
@@ -145,6 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 20,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   input: {
     marginBottom: 10,

@@ -30,7 +30,7 @@ const HomeStack = () => {
   },[orientation]);
 
   return (
-    <Stack.Navigator initialRouteName="Welcome" screenOptions=
+    <Stack.Navigator initialRouteName="PresentationComponent" screenOptions=
     {{headerStyle: orientation === "Portrait" ? StyleSheet.headerStylePortrait:StyleSheet.headerStyleLandscape,headerTintColor:"#fff",}}>
         <Stack.Screen
             name="Welcome"

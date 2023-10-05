@@ -2,7 +2,7 @@ import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native'; // Importa useNavigation
 import React, { useState, useEffect } from 'react';
 import { Button, StyleSheet, Text, Switch, View} from 'react-native';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import { Card, IconButton, Icon, TextInput} from 'react-native-paper';
 import Checkbox from 'expo-checkbox';
 import axios from 'axios';
@@ -24,7 +24,7 @@ const RegisterForm = () => {
     }
 
   const handleCancel = () => {
-    //navigation.navigate('');
+    navigation.navigate('PathComponent');
   };
 
   const handleLogin = async () => {
@@ -87,9 +87,19 @@ const RegisterForm = () => {
             />
 
             <View style={styles.buttonContainer}>
-                <Button title="Iniciar sesión" onPress={handleLogin} style={styles.button} />
+                {/* <Button title="Iniciar sesión" onPress={handleLogin} style={styles.button} /> */}
+                <View>
+                    <TouchableOpacity onPress={handleLogin} style={styles.text_button}>
+                        <Text>Iniciar sesión</Text>
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.space}></View>
-                <Button title="Regresar" onPress={handleCancel} style={styles.button} />
+                {/* <Button title="Regresar" onPress={handleCancel} style={styles.button} /> */}
+                <View>
+                    <TouchableOpacity onPress={handleCancel} style={styles.text_button}>
+                        <Text>Regresar</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
             
@@ -102,7 +112,13 @@ const RegisterForm = () => {
 
 const styles = StyleSheet.create({
     buttonContainer: {
-        alignItems: 'center', // Alinea los botones al centro horizontalmente
+        flexDirection: 'column', // Alinea los botones en una fila horizontal
+    },
+    text_button:{
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        padding: 10,
+        textAlign:'center',
     },
     button: {
         marginBottom: 10, // Espacio entre los botones
@@ -128,6 +144,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         marginBottom: 20,
         textAlign: 'center',
+        fontWeight: 'bold',
     },
     input: {
         marginBottom: 10,
@@ -177,10 +194,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column', 
         justifyContent: 'space-evenly', // Espacio igual entre los botones
         marginVertical: 20, // Espacio vertical alrededor de los botones
-    },
-    buttonWrapper: {
-        flex: 1, // Cada botón toma el mismo espacio
-        marginHorizontal: 10, // Espacio horizontal entre los botones
     },
     textInputContainer: {
         paddingTop: 20

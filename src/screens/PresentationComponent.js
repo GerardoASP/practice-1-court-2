@@ -1,21 +1,33 @@
 import React from 'react'
 import { View, Image, FlatList, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import logoU from '../../assets/personal_images/recurso_26logo.jpg'
-import logoArrow from '../../assets/personal_images/arrow-right-solid.png'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import PathComponent from './PathComponent';
+import { useNavigation } from '@react-navigation/native';
 
 const PresentationComponent = () => {
+  const navigation = useNavigation();
+  
   return (
-    <View>
-        <Text style={styles.principal_text}>EDU NATIVE </Text>
-        <Image  style={styles.principal_image}
-       source={logoU}/>  
-        <TouchableOpacity>
-          <Text style={styles.simple_text}>iniciar</Text>
-        </TouchableOpacity>
-        <Image source={logoArrow} style={styles.second_image}/>
+    <View style={{justifyContent: "space-around"}}>
+      <View style={{flexDirection: 'column',alignItems: 'center', justifyContent: "center"}}>
+        <Text style={{fontWeight: 'bold', fontSize: 36, marginBottom: 100, marginTop: 100}}>EDU NATIVE </Text>
+        <Image style={{alignItems: 'center', justifyContent: "center", borderRadius:120, height:200,
+    width:200, marginBottom: 100}}
+      source={logoU}/>
+      </View>
+      <TouchableOpacity onPress={() => {
+        navigation.navigate("PathComponent");
+      }}>
+        <View style={{flexDirection: 'row',alignItems: 'center', justifyContent: "center", top:0}}>
+          <Text style={{marginRight: 10, fontSize: 20}}>Iniciar</Text>
+          <Icon name="arrow-right" size={20} color="black" />
+        </View>
+      </TouchableOpacity>
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
   principal_text: {
@@ -28,8 +40,8 @@ const styles = StyleSheet.create({
     width: 262,
   },
   principal_image:{
-    height:221,
-    width:232,
+    height:220,
+    width:220,
     left:91,
     top:280,
     position: 'absolute',
@@ -37,19 +49,8 @@ const styles = StyleSheet.create({
   },
   simple_text:{
     color: '#000000',
-    textAlign: 'left',
-    left: 76,
-    top: 500,
-    position: 'absolute',
+    justifyContent: 'center',
     width: 262,
-    marginTop:40
-  },
-  second_image:{
-    height:10,
-    width:10,
-    left:120,
-    top:547,
-    position: 'absolute'
   }
 });
 

@@ -15,7 +15,7 @@ const Stack = createStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Navigator initialRouteName="PresentationComponent">
         <Stack.Screen name = "Welcome" component={WelcomeSlide}/>
         <Stack.Screen name = "PhotosComponent" component={PhotosComponent}/>
         <Stack.Screen name = "SwitchCheckbox" component={SwitchCheckbox}/>
