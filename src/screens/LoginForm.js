@@ -83,7 +83,7 @@ const LoginForm = () => {
       console.log(current_password)
   
       // Realiza la solicitud al backend
-      const response = await axios.post("http://192.168.0.12:3000/api/v1/auth/login", newUser);
+      const response = await axios.post("http://192.168.0.15:3000/api/v1/auth/login", newUser);
 
       console.log(response.data)
   
