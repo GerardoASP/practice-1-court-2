@@ -7,17 +7,37 @@ import { Card, IconButton, Icon, TextInput} from 'react-native-paper';
 import Checkbox from 'expo-checkbox';
 import axios from 'axios';
 import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-const RegisterForm = () => {
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [current_password, setCurrentPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [estaActivo, setEstaActivo] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+const LoginForm = () => {
   const navigation = useNavigation();
+
+  // const [firstname, setFirstname] = useState('');
+  // const [lastname, setLastname] = useState('');
+  // const [current_password, setCurrentPassword] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [estaActivo, setEstaActivo] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    // Verificar si el usuario está autenticado al cargar el componente
+    const checkAuthentication = async () => {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      if (accessToken) {
+        // Si hay un token de acceso, redirigir al usuario al componente "Welcome"
+        navigation.navigate('Welcome');
+      }
+    };
+
+    checkAuthentication();
+  }, []);
+
+  const [newUser, setNewUser] = useState({
+    email: "",
+    current_password: "",
+  });
 
     const goToRegisterForm = () =>{
         navigation.navigate("RegisterForm");
@@ -27,32 +47,67 @@ const RegisterForm = () => {
     navigation.navigate('PathComponent');
   };
 
+  // const handleLogin = async () => {
+  //   try {
+  //     console.log(newUser);
+  //     const response = await axios.post("http://localhost:3000/api/v1/auth/login", newUser);
+  //     const accessToken = response.data.accessToken;
+  //     const refreshToken = response.data.refreshToken;
+  //     console.log(accessToken);
+  //     console.log(refreshToken);
+  //     await AsyncStorage.setItem("accessToken", accessToken);
+  //     Alert.alert(
+  //       "Inicio de sesión exitoso",
+  //       "¡Bienvenido! Por favor, inicia sesión para continuar."
+  //     );
+  //     navigation.navigate("Welcome");
+  //   } catch (error) {
+  //     console.error("Error de inicio de sesión:", error);
+  //     Alert.alert(
+  //       "Error",
+  //       "Nombre de usuario o contraseña incorrectos. Por favor, inténtalo de nuevo."
+  //     );
+  //   }
+  // };
+
   const handleLogin = async () => {
     try {
-        // Realiza la solicitud de inicio de sesión al servidor
-        const response = await axios.post('http://mantenimientoandino.co:3000/api/v1/auth/login', {
-            email: email,
-            password: current_password,
-        });
+      // Asegúrate de que newUser contenga las propiedades correctas
+      const { email, current_password } = newUser;
+      if (!email || !current_password) {
+        Alert.alert("Error", "El email y la contraseña son obligatorios.");
+        return;
+      }
+
+      console.log(email)
+      console.log(current_password)
   
-            // Si la solicitud fue exitosa, verifica la respuesta del servidor
-        if (response.data) {
-            // Guarda el token de autenticación en AsyncStorage o en el estado global de la aplicación
-            // AsyncStorage.setItem('token', response.data.token);
-          
-            // También puedes redirigir a la siguiente pantalla o realizar otras acciones según tus necesidades
-            Alert.alert('Inicio de sesión exitoso', '¡Bienvenido!');
-            navigation.navigate('Welcome');
-        } else {
-            Alert.alert('Inicio de sesión fallido', 'Credenciales inválidas');
-        }
+      // Realiza la solicitud al backend
+      const response = await axios.post("http://192.168.0.12:3000/api/v1/auth/login", newUser);
+
+      console.log(response.data)
+  
+      // Comprueba si la solicitud fue exitosa
+      if (response.status === 200) {
+        const { accessToken, refreshToken } = response.data;
+  
+        // Almacena los tokens de acceso y refresco
+        await AsyncStorage.setItem("accessToken", accessToken);
+        await AsyncStorage.setItem("refreshToken", refreshToken);
+  
+        // Redirige al usuario a la página de bienvenida
+        navigation.navigate("Welcome");
+        Alert.alert("Inicio de sesión exitoso", "¡Bienvenido! Por favor, dale OK para continuar.");
+      } else {
+        Alert.alert("Error", "Nombre de usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.");
+      }
     } catch (error) {
-        console.error(error);
-  
-        // Maneja los errores aquí, muestra un mensaje de error al usuario
-        Alert.alert('Error', 'Ha ocurrido un error al iniciar sesión');
+      // console.error("Error de inicio de sesión:", error);
+      Alert.alert("Error", "Ocurrió un error durante el inicio de sesión. Por favor, inténtalo de nuevo.");
+      navigation.navigate("PresentationComponent");
     }
   };
+  
 
   return (
     <View style={styles.container}>
@@ -74,15 +129,23 @@ const RegisterForm = () => {
             <TextInput
                 style={styles.input}
                 label="Correo Electronico"
-                value={email}
-                onChangeText={setEmail}
+                // value={email}
+                // onChangeText={setEmail}
+                onChangeText={(email_text) =>{
+                  console.log("Email ",email_text);
+                  setNewUser({...newUser, email: email_text});
+                }}
                 keyboardType="email-address"
             />
             <TextInput
                 style={styles.input}
                 label="Contraseña"
-                value={current_password}
-                onChangeText={setCurrentPassword}
+                // value={current_password}
+                // onChangeText={setCurrentPassword}
+                onChangeText={(password_text) =>{
+                  console.log("Password ",password_text);
+                  setNewUser({...newUser, current_password: password_text});
+                }}
                 secureTextEntry={true} 
             />
 
@@ -200,4 +263,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RegisterForm;
+export default LoginForm;

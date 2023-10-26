@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { View, Image, FlatList, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Card, Button } from 'react-native-paper'; // Importa los componentes de react-native-paper
 import * as FileSystem from 'expo-file-system';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 function PhotoList() {
     const [photos, setPhotos] = React.useState([]);
+    const navigation = useNavigation();
 
   // Ruta al directorio que contiene las fotos
   const photosDirectory = `${FileSystem.documentDirectory}fotos`;
@@ -22,6 +25,19 @@ function PhotoList() {
 
         // Llama a la función para leer el contenido del directorio cuando se carga el componente
         readDirectory();
+    }, []);
+
+
+    useEffect(() => {
+        // Verificar si el usuario está autenticado al cargar el componente
+        const checkAuthentication = async () => {
+          const accessToken = await AsyncStorage.getItem('accessToken');
+          if (!accessToken) {
+            navigation.navigate('PresentationComponent');
+          }
+        };
+    
+        checkAuthentication();
     }, []);
 
     // Función para eliminar una foto por su nombre de archivo

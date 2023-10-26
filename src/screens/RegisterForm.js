@@ -6,16 +6,41 @@ import { Image, TouchableOpacity } from 'react-native';
 import { Card, IconButton, Icon, TextInput } from 'react-native-paper';
 import Checkbox from 'expo-checkbox';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const RegisterForm = () => {
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [current_password, setCurrentPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [estaActivo, setEstaActivo] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  // const [firstname, setFirstname] = useState('');
+  // const [lastname, setLastname] = useState('');
+  // const [current_password, setCurrentPassword] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [estaActivo, setEstaActivo] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    // Verificar si el usuario está autenticado al cargar el componente
+    const checkAuthentication = async () => {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      if (accessToken) {
+        // Si hay un token de acceso, redirigir al usuario al componente "Welcome"
+        navigation.navigate('Welcome');
+      }
+    };
+
+    checkAuthentication();
+  }, []);
+
+
+  const [newUser, setNewUser] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    current_password: "",
+    active: false
+  });
+
+
 
   const goToLoginForm = () =>{
     navigation.navigate("LoginForm");
@@ -34,15 +59,15 @@ const RegisterForm = () => {
   };
 
   const handleSubmit = async () => {
-    const data = {
-      firstname,
-      lastname,
-      current_password,
-      email
-    };
+    // const data = {
+    //   firstname,
+    //   lastname,
+    //   current_password,
+    //   email
+    // };
 
     try {
-      const response = await axios.post('http://mantenimientoandino.co:3000/api/v1/auth/register', data);
+      const response = await axios.post('http://192.168.0.12:3000/api/v1/auth/register', newUser);
       console.log(response.data);
       navigation.navigate('LoginForm');
     } catch (error) {
@@ -66,45 +91,61 @@ const RegisterForm = () => {
         <TextInput
           style={styles.input}
           label="Nombre(s)"
-          value={firstname}
-          onChangeText={setFirstname}
+          // value={firstname}
+          // onChangeText={setFirstname}
+          onChangeText={(name_text) =>{
+            console.log("Nombre ",name_text);
+            setNewUser({...newUser, name: name_text});
+          }}
         />
         <TextInput
           style={styles.input}
           label="Apellidos"
-          value={lastname}
-          onChangeText={setLastname}
+          // value={lastname}
+          // onChangeText={setLastname}
+          onChangeText={(lastName_text) =>{
+            console.log("Apellidos ",lastName_text);
+            setNewUser({...newUser, lastname: lastName_text});
+          }}
         />
         <TextInput
           style={styles.input}
           label="Correo Electrónico"
-          value={email}
-          onChangeText={setEmail}
+          // value={email}
+          // onChangeText={setEmail}
+          onChangeText={(email_text) =>{
+            console.log("Email ",email_text);
+            setNewUser({...newUser, email: email_text});
+          }}
           keyboardType="email-address"
         />
         <TextInput
           style={styles.input}
           label="Contraseña"
-          value={current_password}
-          onChangeText={setCurrentPassword}
+          // value={current_password}
+          // onChangeText={setCurrentPassword}
+          onChangeText={(password_text) =>{
+            console.log("Apellidos ",password_text);
+            setNewUser({...newUser, current_password: password_text});
+          }}
           secureTextEntry={true}
         />
 
-        <View style={styles.switchContainer}>
+        {/* <View style={styles.switchContainer}>
           <Switch
             value={estaActivo}
             onValueChange={handleSwitchChange}
           />
           <Text style={styles.switchLabel}>Soy mayor de edad</Text>
-        </View>
+        </View> */}
 
-        <View style={styles.checkboxContainer}>
+        {/* <View style={styles.checkboxContainer}>
           <Checkbox
             value={isChecked}
             onValueChange={handleCheckboxChange}
           />
           <Text style={styles.checkboxLabel}>Acepto términos y condiciones</Text>
-        </View>
+        </View> */}
 
         <View style={styles.imageContainer}>
           <Image source={{ uri: 'https://logos-world.net/wp-content/uploads/2020/11/Gmail-Logo.png' }} style={styles.gmailImage}/>
@@ -114,7 +155,7 @@ const RegisterForm = () => {
         <View style={styles.buttonContainer}>
           <View style={styles.buttonWrapper}>
             <TouchableOpacity onPress={handleSubmit} style={styles.text_button}>
-              <Text >Aceptar</Text>
+              <Text>Aceptar</Text>
             </TouchableOpacity>
             {/* <Button title="Aceptar" onPress={handleSubmit} /> */}
           </View>

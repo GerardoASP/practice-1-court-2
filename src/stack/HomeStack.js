@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet } from 'react-native';
 import PhotosComponent from '../screens/PhotosComponent';
 import SwitchCheckbox from '../screens/SwitchCheckbox';
-import RegisterForm from '../screens/RegisterForm';
+// import RegisterForm from '../screens/RegisterForm';
 import LoginForm from '../screens/LoginForm';
 import PresentationComponent from '../screens/PresentationComponent';
 import PathComponent from '../screens/PathComponent';
@@ -48,11 +48,11 @@ const HomeStack = () => {
             component={SwitchCheckbox}
             options={{ headerShown: false }} // Esto oculta el encabezado
         />
-        <Stack.Screen
+        {/* <Stack.Screen
             name="RegisterForm"
             component={RegisterForm}
             options={{ title: "RegisterForm" }} // Personaliza el título del encabezado
-        />
+        /> */}
         <Stack.Screen
             name="LoginForm"
             component={LoginForm}

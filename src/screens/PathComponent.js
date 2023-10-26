@@ -1,21 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button } from 'react-native';
 import { View, Image, FlatList, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import logoU from '../../assets/personal_images/recurso_26logo.jpg'
 import logoG from '../../assets/personal_images/281769.png'
 import logoO from '../../assets/personal_images/Outlook_2013_23477.png'
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PathComponent = () => {
   const navigation = useNavigation();
 
-  const login = () => {
-    navigation.navigate('LoginForm');
-  };
+  useEffect(() => {
+    // Verificar si el usuario está autenticado al cargar el componente
+    const checkAuthentication = async () => {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      if (accessToken) {
+        // Si hay un token de acceso, redirigir al usuario al componente "Welcome"
+        navigation.navigate('Welcome');
+      }
+    };
 
-  const register = () => {
-    navigation.navigate('RegisterForm');
-  };
+    checkAuthentication();
+  }, []);
 
   return (
     <View>

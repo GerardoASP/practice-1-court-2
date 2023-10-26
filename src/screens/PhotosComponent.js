@@ -5,10 +5,16 @@ import { StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, Button } f
 import PhotoList from './PhotoList';
 import * as FileSystem from 'expo-file-system';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useEffect } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { Modal } from 'react-native';
 
 
 
-export default function PhotosComponent() {
+export default function PhotosComponent({setSelectedImageUri2}) {
+  const navigation = useNavigation();
+
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const cameraRef = useRef(null);
@@ -16,6 +22,22 @@ export default function PhotosComponent() {
   const [capturedPhoto, setCapturedPhoto] = useState(null);
   const [button, setButton] = useState(false);
   const [savePhoto, setSavePhoto] = useState(false);
+
+  const [modalVisible, setModalVisible] = useState(false)
+
+
+
+  useEffect(() => {
+    // Verificar si el usuario está autenticado al cargar el componente
+    const checkAuthentication = async () => {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      if (!accessToken) {
+        navigation.navigate('PresentationComponent');
+      }
+    };
+
+    checkAuthentication();
+  }, []);
 
 
   if (!permission) {
@@ -57,27 +79,38 @@ export default function PhotosComponent() {
           {isPreviewVisible ? (
             <View>
               <Image source={{ uri: capturedPhoto.uri }} style={styles.imageCamera} />
-              <Button style={styles.buttonTake} title="Guardar" onPress={() => handleSavePhoto(capturedPhoto.uri)}>Guardar</Button>
+              {/* <Button style={styles.buttonTake} title="Guardar" onPress={() => handleSavePhoto(capturedPhoto.uri)}>Guardar</Button> */}
               <Button style={styles.buttonTake} title="Descartar" onPress={handleDiscardPhoto}>Descartar</Button>
             </View>
           ) : (
-            <View>
-              <Camera style={styles.camera} type={type} ref={cameraRef}>
-                <TouchableOpacity style={styles.flipButton} onPress={toggleCameraType}>
-                  <Icon name="refresh" size={30} color="#fff" />
-                </TouchableOpacity>
-                <Text style={styles.captureButton} title="Tomar Foto" onPress={handleTakePicture} />
-              </Camera>
-            </View>
+              <Modal 
+                visible={modalVisible} 
+                onRequestClose={() => setModalVisible(false)}
+                animationType="slide">
+                  <View style={styles.modalContainer}>
+                    <Camera style={styles.camera} type={type} ref={cameraRef}>
+                      <TouchableOpacity style={styles.flipButton} onPress={toggleCameraType}>
+                        <Icon name="refresh" size={30} color="#fff" />
+                      </TouchableOpacity>
+                      <Text style={styles.captureButton} title="Tomar Foto" onPress={handleTakePicture} />
+                    </Camera>
+                  </View>
+              </Modal>
           )}
         </View>
       );
     }
 
     return (
-      <View style={styles.containerAddPhoto}>
-        <PhotoList />
-        <Button style={styles.button} onPress={() => setButton(true)} title="Añadir foto" />
+      <View /* style={styles.containerAddPhoto} */>
+        {/* <PhotoList /> */}
+        <Button 
+          style={styles.button} 
+          onPress={() => {
+            setButton(true)
+            setModalVisible(true)
+          }} 
+          title="Añadir foto" />
       </View>
     );
   }
@@ -92,6 +125,8 @@ export default function PhotosComponent() {
       console.log(photo.uri);
       setCapturedPhoto(photo);
       setPreviewVisible(true);
+
+      setSelectedImageUri2(photo.uri);
     }
   }
 
@@ -108,7 +143,7 @@ export default function PhotosComponent() {
         to: destinationUri,
       });
       console.log('Foto guardada en:', destinationUri);
-      console.log('AQUIIIIIIIIIII'+destinationUri)
+
 
       //setCapturedPhoto(null);
       setButton(false);
@@ -131,6 +166,12 @@ const screenHeight = Dimensions.get('window').height;
 const leftValue = (screenWidth / 2) - 30; // Calcula el valor deseado
 
 const styles = StyleSheet.create({
+  modalContainer:{
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center"
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -141,7 +182,7 @@ const styles = StyleSheet.create({
     paddingBottom:18
   },
   camera: {
-    height: screenHeight,
+    height: screenHeight+25,
     width: screenWidth
   },
   buttonContainer: {
@@ -152,8 +193,8 @@ const styles = StyleSheet.create({
   },
 
   imageCamera: {
-    height: screenHeight-135,
-    width: screenWidth,
+    height: 400,
+    width: 300,
   },
 
 
@@ -167,13 +208,10 @@ const styles = StyleSheet.create({
   },
   flipButton: {
     position: 'absolute',
-    bottom: 70,
-    left: 70,
+    top: screenHeight-90,
+    left: leftValue/2,
     backgroundColor: 'transparent',
   },
-
-
-
   text: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -190,7 +228,7 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    top: 670,
+    top: screenHeight-100,
     left: leftValue,
   },
   captureButtonShowCamera: {

@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Image, FlatList, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import logoU from '../../assets/personal_images/recurso_26logo.jpg'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PathComponent from './PathComponent';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PresentationComponent = () => {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    // Verificar si el usuario está autenticado al cargar el componente
+    const checkAuthentication = async () => {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      if (accessToken) {
+        // Si hay un token de acceso, redirigir al usuario al componente "Welcome"
+        navigation.navigate('Welcome');
+      }
+    };
+
+    checkAuthentication();
+  }, []);
   
   return (
     <View style={{justifyContent: "space-around"}}>

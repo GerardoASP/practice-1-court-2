@@ -1,13 +1,30 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Switch, Button, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const SwitchCheckbox = () => {
+  const navigation = useNavigation();
+
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [estaActivo, setEstaActivo] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
+
+
+  useEffect(() => {
+    // Verificar si el usuario está autenticado al cargar el componente
+    const checkAuthentication = async () => {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      if (!accessToken) {
+        navigation.navigate('PresentationComponent');
+      }
+    };
+
+    checkAuthentication();
+  }, []);
 
   const handleSwitchChange = () => {
     setEstaActivo(!estaActivo);
