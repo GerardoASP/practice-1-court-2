@@ -67,7 +67,7 @@ const RegisterForm = () => {
     // };
 
     try {
-      const response = await axios.post('http://192.168.0.12:3000/api/v1/auth/register', newUser);
+      const response = await axios.post('http://192.168.0.15:3000/api/v1/auth/register', newUser);
       console.log(response.data);
       navigation.navigate('LoginForm');
     } catch (error) {

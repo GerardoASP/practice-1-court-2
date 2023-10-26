@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Image, View, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
+import { Text } from 'react-native';
 
 export default function ImagesComp({ setSelectedImageUris }) {
     const [selectedImages, setSelectedImages] = useState([]);
@@ -32,7 +33,7 @@ export default function ImagesComp({ setSelectedImageUris }) {
     };
 
     return (
-        <View style={{ flex: 1, maxHeight: 200 }}>
+        <View style={{ flex: 1, maxHeight: 200 ,marginTop:100}}>
             <Button title="Escoge imágenes de tu galería aquí" onPress={pickImages} />
 
             <ScrollView

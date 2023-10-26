@@ -35,7 +35,7 @@ export default function ImageComp({ setSelectedImageUri }) {
       });
 
       try {
-        const response = await axios.post('http://192.168.0.12:3000/api/v1/posts/upload-image', formData, {
+        const response = await axios.post('http://192.168.0.15:3000/api/v1/posts/upload-image', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

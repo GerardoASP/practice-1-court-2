@@ -11,6 +11,7 @@ import ImageUrl from './ImageUrl';
 import PhotosComponent from './PhotosComponent';
 import ImagesComp from './ImagesComp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Card, Paragraph, Title } from 'react-native-paper';
 
 
 
@@ -170,7 +171,7 @@ export const Posts = () => {
 
                 
 
-                    const response = await axios.post('http://192.168.0.12:3000/api/v1/posts/upload-imageM', formData, {
+                    const response = await axios.post('http://192.168.0.15:3000/api/v1/posts/upload-imageM', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data',
                         }
@@ -191,7 +192,7 @@ export const Posts = () => {
                     
                     // console.log(arrayImages)
 
-                    const postResponse = await axios.post("http://192.168.0.12:3000/api/v1/posts/new-post", newPost);
+                    const postResponse = await axios.post("http://192.168.0.15:3000/api/v1/posts/new-post", newPost);
                     console.log('Data new post', postResponse.data);
                     setSelectedImageUris(null);
                     setSelectedImageUri(null);
@@ -218,7 +219,7 @@ export const Posts = () => {
 
             console.log('FormDataINDIVIDUAL----', formData)
 
-            const response = await axios.post('http://192.168.0.12:3000/api/v1/posts/upload-image', formData, {
+            const response = await axios.post('http://192.168.0.15:3000/api/v1/posts/upload-image', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -243,7 +244,7 @@ export const Posts = () => {
             console.log(newPost);
 
 
-            const postResponse = await axios.post("http://192.168.0.12:3000/api/v1/posts/new-post", newPost);
+            const postResponse = await axios.post("http://192.168.0.15:3000/api/v1/posts/new-post", newPost);
             console.log('Data new post', postResponse.data);
 
             setSelectedImageUris(null);
@@ -270,7 +271,7 @@ export const Posts = () => {
         console.log("postId", postId);
         const updatedPosts = postsList.filter((post) => post._id !== postId);
         setPostsLists(updatedPosts);
-        axios.delete(`http://192.168.0.12:3000/api/v1/posts/${postId}`)
+        axios.delete(`http://192.168.0.15:3000/api/v1/posts/${postId}`)
         .then((response) => {
             console.log('Post deleted', response.data)
         })
@@ -281,7 +282,7 @@ export const Posts = () => {
 
     const listsPosts = () => {
 
-        axios.get(`http://192.168.0.12:3000/api/v1/posts`)
+        axios.get(`http://192.168.0.15:3000/api/v1/posts`)
         .then((response) => {
             // console.log('Data posts: ', response.data)
             setPostsLists(response.data)
@@ -302,28 +303,22 @@ export const Posts = () => {
             keyExtractor={(item) => item._id}
             renderItem = {({item})=>(
                 <View style={{flex: 1, justifyContent: "center", alignItems: "center", alignContent: "center", margin: 10}}>
-                    {/* <Image source={{uri: item.avatar}} style={{width: 50, height:50}}/> */}
-                    {/* <ImageUrl imagenURL={item.avatar}/> */}
-
-
-                    <ScrollView horizontal={true}>
-                        {item.avatar.map((imageUrl, index) => (
-                        <Image
-                            key={index}
-                            source={{ uri: `http://192.168.0.12:3000/api/v1/uploads/${imageUrl}` }}
-                            // source={{ uri: imageUrl }}
-                            style={{ width: 50, height: 50, margin: 5 }}
-                        />
-                        // <Text>{imageUrl}</Text>
-                        ))}
-                    </ScrollView>
-
-
-
-                    <Text>Title: {item.title}</Text>
-                    <Text>Subtitle: {item.subtitle}</Text>
-                    <Text>Description: {item.description}</Text>
-                    <Text>Active: {item.active ? "Y" : "N"}</Text>
+                    <Card>
+                        <Card.Content>
+                            <ScrollView horizontal={true}>
+                            {item.avatar.map((imageUrl, index) => (
+                                <Image
+                                    key={index}
+                                    source={{ uri: `http://192.168.0.15:3000/api/v1/uploads/${imageUrl}` }}
+                                    style={{ width: 200, height: 150, margin: 5 }}
+                                />
+                            ))}
+                            </ScrollView>
+                        <Title>Title: {item.title}</Title>
+                        <Paragraph>Subtitle: {item.subtitle}</Paragraph>
+                        <Paragraph>Description: {item.description}</Paragraph>
+                        </Card.Content>
+                    </Card>
                     <Button title="Delete" onPress={() => handleDeletePost(item._id)}></Button>
                 </View>
             )}/>
@@ -334,6 +329,7 @@ export const Posts = () => {
             onRequestClose={() => setModalVisible(false)}
             animationType="slide">
                 <View style={styles.modalContainer}>
+                <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 100, marginTop: 10}}>Datos Post </Text>
                     <TextInput 
                         placeholder="Title post" 
                         style={styles.input} 
@@ -361,13 +357,7 @@ export const Posts = () => {
                         }}
                     />
 
-                    <TextInput 
-                        style={styles.input} 
-                        onChangeText={(avatar_text) =>{
-                            setNewPost({...newPost, avatar: avatar_text});
-                        }}
-                        editable={false}
-                    />
+                   
 
 
                     <>
@@ -378,6 +368,7 @@ export const Posts = () => {
                         ) : (
                             <PhotosComponent setSelectedImageUri2={setSelectedImageUri2}/>
                         )}
+                        
                         <Button title="Cambiar" onPress={switchComponent}/>
                     </>
 
@@ -403,7 +394,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignContent: "center"
     },
-    input:{
+    input: {
         marginBottom: 10,
+        paddingVertical: 5,
+        paddingHorizontal: 20,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 3,
     }
 })
