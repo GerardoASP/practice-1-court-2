@@ -30,23 +30,28 @@ const PathComponent = () => {
           <Text style={styles.simple_text}>¿Que deseas hacer?</Text>
           <View style={styles.buttonsContainer}>
               <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.text_button}>
-                  <Text >Recorrido en la App</Text>
+                <TouchableOpacity /* style={styles.text_button} */ style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+                  <Text style={{ color: '#FFF',fontWeight: 'bold'}}>Recorrido en la App</Text>
                 </TouchableOpacity>
                 {/* <Button title="Iniciar Sesión" onPress={login} /> */}
               </View>
               <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => {navigation.navigate("LoginForm");}} style={styles.text_button}>
-                  <Text >Iniciar sesión</Text>
+                <TouchableOpacity onPress={() => {navigation.navigate("LoginForm");}} /* style={styles.text_button} */ style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+                  <Text style={{ color: '#FFF',fontWeight: 'bold'}}>Iniciar sesión</Text>
                 </TouchableOpacity>
                 {/* <Button title="Iniciar Sesión" onPress={login} /> */}
               </View>
               <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => {navigation.navigate("RegisterForm");}} style={styles.button}>
-                  <Text style={styles.text_button}>Registrarme</Text>
+                <TouchableOpacity onPress={() => {navigation.navigate("RegisterForm");}} /* style={styles.button} */ style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+                  <Text style={{ color: '#FFF',fontWeight: 'bold'}}>Registrarme</Text>
                 </TouchableOpacity>
                 {/* <Button title="Registrarme" onPress={register} /> */}
               </View>
+
+
+
+
+
           </View>
           <View style={styles.touchablesContainer}>
             <TouchableOpacity onPress={() => console.log('Iniciando sesión con Gmail...')}>
@@ -72,8 +77,8 @@ const styles = StyleSheet.create({
   principal_image:{
     height:70,
     width:70,
-    left:302,
-    top:35,
+    left:290,
+    top:50,
     position: 'absolute',
     borderRadius:120
   },
@@ -111,9 +116,11 @@ const styles = StyleSheet.create({
     paddingTop:70,
   },
   container:{
-    flexDirection:'column',
+    // flexDirection:'column',
+    flex:0,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop:50
   },
   imageContainer: {
     flexDirection: 'row',

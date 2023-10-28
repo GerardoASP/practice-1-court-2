@@ -83,7 +83,7 @@ const LoginForm = () => {
       console.log(current_password)
   
       // Realiza la solicitud al backend
-      const response = await axios.post("http://192.168.0.15:3000/api/v1/auth/login", newUser);
+      const response = await axios.post("http://192.168.0.12:3000/api/v1/auth/login", newUser);
 
       console.log(response.data)
   
@@ -152,15 +152,15 @@ const LoginForm = () => {
             <View style={styles.buttonContainer}>
                 {/* <Button title="Iniciar sesión" onPress={handleLogin} style={styles.button} /> */}
                 <View>
-                    <TouchableOpacity onPress={handleLogin} style={styles.text_button}>
-                        <Text>Iniciar sesión</Text>
+                    <TouchableOpacity onPress={handleLogin} /* style={styles.text_button} */ style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+                        <Text style={{ color: '#FFF',fontWeight: 'bold'}}>Iniciar sesión</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.space}></View>
                 {/* <Button title="Regresar" onPress={handleCancel} style={styles.button} /> */}
                 <View>
-                    <TouchableOpacity onPress={handleCancel} style={styles.text_button}>
-                        <Text>Regresar</Text>
+                    <TouchableOpacity onPress={handleCancel} /* style={styles.text_button} */ style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+                        <Text style={{ color: '#FFF',fontWeight: 'bold'}}>Regresar</Text>
                     </TouchableOpacity>
                 </View>
             </View>

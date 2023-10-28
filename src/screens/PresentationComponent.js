@@ -23,9 +23,9 @@ const PresentationComponent = () => {
   }, []);
   
   return (
-    <View style={{justifyContent: "space-around"}}>
+    <View style={{flex:0, justifyContent:"center", alignItems:"center", alignContent:"center"}}>
       <View style={{flexDirection: 'column',alignItems: 'center', justifyContent: "center"}}>
-        <Text style={{fontWeight: 'bold', fontSize: 36, marginBottom: 100, marginTop: 100}}>EDU NATIVE </Text>
+        <Text style={{fontWeight: 'bold', fontSize: 36, marginBottom: 100, marginTop: 150}}>EDU NATIVE </Text>
         <Image style={{alignItems: 'center', justifyContent: "center", borderRadius:120, height:200,
     width:200, marginBottom: 100}}
       source={logoU}/>

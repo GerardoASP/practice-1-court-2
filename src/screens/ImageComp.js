@@ -35,7 +35,7 @@ export default function ImageComp({ setSelectedImageUri }) {
       });
 
       try {
-        const response = await axios.post('http://192.168.0.15:3000/api/v1/posts/upload-image', formData, {
+        const response = await axios.post('http://192.168.0.12:3000/api/v1/posts/upload-image', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -49,7 +49,17 @@ export default function ImageComp({ setSelectedImageUri }) {
 
   return (
     <View /* style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} */>
-      <Button title="Escoge una imagen de tu galería aquí" onPress={pickImage} />
+      {/* <Button title="Escoge una imagen de tu galería aquí" onPress={pickImage} /> */}
+
+      <View>
+        <TouchableOpacity 
+          onPress={pickImage} 
+          style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+          <Text >TOMA UNA FOTO</Text>
+        </TouchableOpacity>
+      </View>
+
+      
       {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
       {/* {image && <Button title="Guardar en el backend" onPress={uploadImage} />} */}
     </View>

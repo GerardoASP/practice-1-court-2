@@ -67,7 +67,7 @@ const RegisterForm = () => {
     // };
 
     try {
-      const response = await axios.post('http://192.168.0.15:3000/api/v1/auth/register', newUser);
+      const response = await axios.post('http://192.168.0.12:3000/api/v1/auth/register', newUser);
       console.log(response.data);
       navigation.navigate('LoginForm');
     } catch (error) {
@@ -154,14 +154,14 @@ const RegisterForm = () => {
 
         <View style={styles.buttonContainer}>
           <View style={styles.buttonWrapper}>
-            <TouchableOpacity onPress={handleSubmit} style={styles.text_button}>
-              <Text>Aceptar</Text>
+            <TouchableOpacity onPress={handleSubmit} /* style={styles.text_button} */ style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+              <Text style={{ color: '#FFF',fontWeight: 'bold'}}>Aceptar</Text>
             </TouchableOpacity>
             {/* <Button title="Aceptar" onPress={handleSubmit} /> */}
           </View>
           <View style={styles.buttonWrapper}>
-            <TouchableOpacity onPress={handleCancel} style={styles.text_button}>
-              <Text>Cancelar</Text>
+            <TouchableOpacity onPress={handleCancel} /* style={styles.text_button} */ style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+              <Text style={{ color: '#FFF',fontWeight: 'bold'}}>Cancelar</Text>
             </TouchableOpacity>
           </View>
         </View>

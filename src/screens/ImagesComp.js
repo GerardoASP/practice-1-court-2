@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Image, View, ScrollView } from 'react-native';
+import { Button, Image, View, ScrollView, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import { Text } from 'react-native';
@@ -33,22 +33,30 @@ export default function ImagesComp({ setSelectedImageUris }) {
     };
 
     return (
-        <View style={{ flex: 1, maxHeight: 200 ,marginTop:100}}>
-            <Button title="Escoge imágenes de tu galería aquí" onPress={pickImages} />
+      <View>
+          {/* <Button title="Escoge imágenes de tu galería aquí" onPress={pickImages} /> */}
 
-            <ScrollView
-                horizontal={true}
-                contentContainerStyle={{ padding: 0, margin: 0 }}
-                style={{ padding: 0, margin: 0 }}
-            >
-                {selectedImages.map((image, index) => (
-                    <Image
-                        key={index}
-                        source={{ uri: image.uri }}
-                        style={{ width: 200, height: 200 }}
-                    />
-                ))}
-            </ScrollView>
-        </View>
+          <View>
+            <TouchableOpacity
+                onPress={pickImages}
+                style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+                <Text style={{color: '#FFF', fontWeight: 'bold'}}>ESCOGE LAS IMÁGENES</Text>
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView
+              horizontal={true}
+              contentContainerStyle={{ padding: 0, margin: 0 }}
+              style={{ padding: 0, margin: 0, width:300 }}
+          >
+              {selectedImages.map((image, index) => (
+                  <Image
+                      key={index}
+                      source={{ uri: image.uri }}
+                      style={{ width: 300, height: 200 }}
+                  />
+              ))}
+          </ScrollView>
+      </View>
     );
 }

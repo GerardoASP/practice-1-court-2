@@ -1,6 +1,6 @@
 import { Camera, CameraType } from 'expo-camera';
 import { useState, useRef } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, Button } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, Button, ScrollView } from 'react-native';
 // import { Button } from 'react-native-paper';
 import PhotoList from './PhotoList';
 import * as FileSystem from 'expo-file-system';
@@ -77,11 +77,33 @@ export default function PhotosComponent({setSelectedImageUri2}) {
             </View>
           </Camera> */}
           {isPreviewVisible ? (
-            <View>
-              <Image source={{ uri: capturedPhoto.uri }} style={styles.imageCamera} />
-              {/* <Button style={styles.buttonTake} title="Guardar" onPress={() => handleSavePhoto(capturedPhoto.uri)}>Guardar</Button> */}
-              <Button style={styles.buttonTake} title="Descartar" onPress={handleDiscardPhoto}>Descartar</Button>
+            <View style={styles.container}>
+              {/* <View>
+                <Image source={{ uri: capturedPhoto.uri }} style={styles.imageCamera} />
+                <Button style={styles.buttonTake} title="Descartar" onPress={handleDiscardPhoto}>Descartar</Button>
+              </View> */}
+              <ScrollView
+                  horizontal={true}
+                  contentContainerStyle={{ padding: 0, margin: 0 }}
+                  style={{ padding: 0, margin: 0, width:300 }}
+              >
+                  <Image source={{ uri: capturedPhoto.uri }} style={styles.imageCamera} />
+                  {/* <Button style={styles.buttonTake} title="Guardar" onPress={() => handleSavePhoto(capturedPhoto.uri)}>Guardar</Button> */}
+                  {/* <Button style={styles.buttonTake} title="Descartar" onPress={handleDiscardPhoto}>Descartar</Button> */}
+              </ScrollView>
+              {/* <Button style={styles.buttonTake} title="Descartar" onPress={handleDiscardPhoto}>Descartar</Button> */}
+              <View>
+                <TouchableOpacity 
+                    onPress={handleDiscardPhoto} 
+                    style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#ff4545', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+                    <Text style={{color: '#FFF', fontWeight: 'bold'}}>DESCARTAR</Text>
+                </TouchableOpacity>
+              </View>
+              {/* <View style={{height: 10}}></View> */}
+              
             </View>
+            
+            
           ) : (
               <Modal 
                 visible={modalVisible} 
@@ -102,15 +124,28 @@ export default function PhotosComponent({setSelectedImageUri2}) {
     }
 
     return (
-      <View /* style={styles.containerAddPhoto} */>
-        {/* <PhotoList /> */}
-        <Button 
-          style={styles.button} 
-          onPress={() => {
-            setButton(true)
-            setModalVisible(true)
-          }} 
-          title="Añadir foto" />
+      // <View /* style={styles.containerAddPhoto} */>
+      //   {/* <PhotoList /> */}
+      //   <Button 
+      //     style={styles.button} 
+      //     onPress={() => {
+      //       setButton(true)
+      //       setModalVisible(true)
+      //     }} 
+      //     title="Añadir foto" />
+      // </View>
+
+      <View>
+        <View>
+          <TouchableOpacity 
+              onPress={() => {
+                setButton(true)
+                setModalVisible(true)
+              }} 
+              style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+              <Text style={{color: '#FFF', fontWeight: 'bold'}}>TOMA UNA FOTO</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -193,7 +228,7 @@ const styles = StyleSheet.create({
   },
 
   imageCamera: {
-    height: 400,
+    height: 300,
     width: 300,
   },
 
