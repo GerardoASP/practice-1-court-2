@@ -370,15 +370,17 @@ export const Posts = () => {
                             <View style={{flex: 1, justifyContent: "center", alignItems: "center", alignContent: "center"}}>
                                 <Title>{item.title}</Title>
                             </View>
-                            <ScrollView horizontal={true} style={{width: 200}}>
-                                {item.avatar.map((imageUrl, index) => (
-                                    <Image
-                                        key={index}
-                                        source={{ uri: `http://192.168.0.12:3000/api/v1/uploads/${imageUrl}` }}
-                                        style={{ width: 200, height: 150, margin: 5 }}
-                                    />
-                                ))}
-                            </ScrollView>
+                            <View style={{flex:0, justifyContent:"center", alignItems:"center"}}>
+                                <ScrollView horizontal={true} style={{width:200}}>
+                                    {item.avatar.map((imageUrl, index) => (
+                                        <Image
+                                            key={index}
+                                            source={{ uri: `http://192.168.0.12:3000/api/v1/uploads/${imageUrl}` }}
+                                            style={{ width: 200, height: 150, margin: 5 }}
+                                        />
+                                    ))}
+                                </ScrollView>
+                            </View>
                             <Paragraph>Subtítulo: {item.subtitle}</Paragraph>
                             <Paragraph>Descripción: {item.description}</Paragraph>
                             {/* <View style={{margin:10}}>
