@@ -44,18 +44,24 @@ const AllyForm = () => {
     const switchComponent = () => {
         setShowImageComp(!showImageComp);
     };
-  
-    const handleSwitchChangeActive = () => {
-        setIsActive(!isActive);
-        console.log(isActive)
-        setnewAlly({...newAlly, active: isActive});
-    };
 
-    const handleSwitchChangeNational = () => {
-        setIsNational(!isNational);
-        console.log(isNational)
-        setnewAlly({...newAlly, national: isNational});
-    };
+    const handleSwitchChangeActive = () => {
+        setIsActive(prevIsActive => {
+            const newIsActive = !prevIsActive;
+            console.log("Active value:", newIsActive);
+            setNewAlly({...newAlly, active: newIsActive});
+            return newIsActive;
+        });
+     }
+
+     const handleSwitchChangeNational = () => {
+        setIsNational(prevIsNational => {
+            const newIsNational = !prevIsNational;
+            console.log("National value:", newIsNational);
+            setNewAlly({...newAlly, national: newIsNational});
+            return newIsNational;
+        });
+      };
 
     useEffect(() => {
         if (selectedImageUris) {
@@ -302,7 +308,7 @@ const AllyForm = () => {
                 <TouchableOpacity
                     onPress={() => setModalVisible(true)}
                     style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center'}}>
-                    <Text style={{color: '#FFF', fontWeight: 'bold'}}>NUEVO CLIENTE</Text>
+                    <Text style={{color: '#FFF', fontWeight: 'bold'}}>NUEVO ALIADO</Text>
                 </TouchableOpacity>
             </View>
             <Modal 
@@ -327,11 +333,11 @@ const AllyForm = () => {
                         <View style={{height: 50}}></View>
                         
                         <TextInput 
-                            label="Nombre Cliente"
+                            label="Nombre Aliado"
                             style={styles.input} 
                             onChangeText={(title_text) =>{
                                 // console.log("Título publicación",title_text);
-                                setnewAlly({...newAlly, clientName: title_text});
+                                setNewAlly({...newAlly, clientName: title_text});
                             }}
                         />
 
