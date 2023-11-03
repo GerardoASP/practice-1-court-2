@@ -13,6 +13,7 @@ import CustomHeader from './src/screens/CustomHeader';
 import { Posts } from './src/screens/Posts';
 import ImageComp from './src/screens/ImageComp';
 import ImagesComp from './src/screens/ImagesComp';
+import ClientsForm from './src/screens/ClientsForm';
 import AllyForm from './src/screens/AllyForm';
 
 const Stack = createStackNavigator()
@@ -31,6 +32,7 @@ export default function App() {
         <Stack.Screen name = "Posts" component={Posts} options={{ header: () => <CustomHeader /> }}/>
         <Stack.Screen name = "ImageComp" component={ImageComp}/>
         <Stack.Screen name = "ImagesComp" component={ImagesComp}/>
+        <Stack.Screen name = "ClientsForm" component={ClientsForm}/>
         <Stack.Screen name = "AllyForm" component={AllyForm}/>
       </Stack.Navigator>
     </NavigationContainer>

@@ -90,6 +90,7 @@ const LoginForm = () => {
       console.log(response.data)
 
       // Comprueba si la solicitud fue exitosa
+      if (response.status === 200) {
       // if (response.status === 200) {
         // const { accessToken, refreshToken } = response.data;
 
@@ -97,6 +98,11 @@ const LoginForm = () => {
         //LOGIN PROFE
         const accessToken = response.data.access;
         await AsyncStorage.setItem("accessToken", accessToken);
+  
+        // Almacena los tokens de acceso y refresco
+        // await AsyncStorage.setItem("access", accessToken);
+        // await AsyncStorage.setItem("refresh", refreshToken);
+  
 
         // Almacena los tokens de acceso y refresco
         // await AsyncStorage.setItem("access", accessToken);
@@ -105,9 +111,9 @@ const LoginForm = () => {
         // Redirige al usuario a la página de bienvenida
         navigation.navigate("Welcome");
         Alert.alert("Inicio de sesión exitoso", "¡Bienvenido! Por favor, dale OK para continuar.");
-      // } else {
-      //   Alert.alert("Error", "Nombre de usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.");
-      // }
+       } else {
+         Alert.alert("Error", "Nombre de usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.");
+       }
     } catch (error) {
       // console.error("Error de inicio de sesión:", error);
       Alert.alert("Error", "Ocurrió un error durante el inicio de sesión. Por favor, inténtalo de nuevo.");
