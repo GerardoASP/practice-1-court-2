@@ -7,6 +7,7 @@ import SwitchCheckbox from '../screens/SwitchCheckbox';
 import LoginForm from '../screens/LoginForm';
 import PresentationComponent from '../screens/PresentationComponent';
 import PathComponent from '../screens/PathComponent';
+import AllyForm from '../screens/AllyForm';
 
 const Stack =createStackNavigator();
 
@@ -67,6 +68,10 @@ const HomeStack = () => {
             name="PathComponent"
             component={PathComponent}
             options={{ headerShown: false }} // Esto oculta el encabezado
+        />
+        <Stack.Screen
+            name="AllyForm"
+            component={AllyForm}
         />
     </Stack.Navigator>
   );

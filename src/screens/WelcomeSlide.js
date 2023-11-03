@@ -55,6 +55,10 @@ const WelcomeSlide = () => {
   const goToClients = () =>{
     navigation.navigate("ClientsForm");
   }
+  
+  const goToAllies = () =>{
+    navigation.navigate("AllyForm");
+  }
 
   // return (
   //   <View>
@@ -78,7 +82,13 @@ const WelcomeSlide = () => {
         style={styles.buttonPost}
         onPress={goToClients}
       >
-        <Text  style={styles.textPrincipal}>Clientes</Text>
+        <Text style={styles.textPrincipal}>Clientes</Text>
+      </TouchableOpacity>
+      <TouchableOpacity 
+        style={styles.buttonPost}
+        onPress={goToAllies}
+      >
+        <Text style={styles.textPrincipal}>Aliados</Text>
       </TouchableOpacity>
       {/* <TouchableOpacity 
         style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'lightgreen'}}
