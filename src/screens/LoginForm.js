@@ -74,6 +74,7 @@ const LoginForm = () => {
     try {
       // Asegúrate de que newUser contenga las propiedades correctas
       const { email, current_password } = newUser;
+
       if (!email || !current_password) {
         Alert.alert("Error", "El email y la contraseña son obligatorios.");
         return;
@@ -83,17 +84,23 @@ const LoginForm = () => {
       console.log(current_password)
   
       // Realiza la solicitud al backend
-      const response = await axios.post("http://192.168.0.12:3000/api/v1/auth/login", newUser);
+      // const response = await axios.post("http://192.168.0.12:3000/api/v1/auth/login", newUser);
+      const response = await axios.post("http://mantenimientoandino.co:3000/api/v1/auth/login", newUser);
 
       console.log(response.data)
   
       // Comprueba si la solicitud fue exitosa
       if (response.status === 200) {
-        const { accessToken, refreshToken } = response.data;
+        // const { accessToken, refreshToken } = response.data;
+
+
+        //LOGIN PROFE
+        const accessToken = response.data.access;
+        await AsyncStorage.setItem("accessToken", accessToken);
   
         // Almacena los tokens de acceso y refresco
-        await AsyncStorage.setItem("accessToken", accessToken);
-        await AsyncStorage.setItem("refreshToken", refreshToken);
+        // await AsyncStorage.setItem("access", accessToken);
+        // await AsyncStorage.setItem("refresh", refreshToken);
   
         // Redirige al usuario a la página de bienvenida
         navigation.navigate("Welcome");

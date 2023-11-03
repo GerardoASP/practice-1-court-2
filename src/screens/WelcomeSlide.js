@@ -52,6 +52,10 @@ const WelcomeSlide = () => {
     navigation.navigate("Posts");
   }
 
+  const goToClients = () =>{
+    navigation.navigate("ClientsForm");
+  }
+
   // return (
   //   <View>
   //     {/* <Button title="PhotosComponent" onPress={goToPhotosComponent}/>
@@ -68,6 +72,13 @@ const WelcomeSlide = () => {
         onPress={goToPosts}
       >
         <Text  style={styles.textPrincipal}>Haz un post</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        style={styles.buttonPost}
+        onPress={goToClients}
+      >
+        <Text  style={styles.textPrincipal}>Clientes</Text>
       </TouchableOpacity>
       {/* <TouchableOpacity 
         style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'lightgreen'}}
