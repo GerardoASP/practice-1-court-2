@@ -78,7 +78,7 @@ const AllyForm = () => {
 
     const listsAllies = () => {
 
-        axios.get(`http://mantenimientoandino.co:3000/api/v1/admin/clients`)
+        axios.get(`http://mantenimientoandino.co:3000/api/v1/admin/allies`)
         .then((response) => {
             // console.log('Data posts: ', response.data)
             setAlliesLists(response.data)
@@ -285,8 +285,8 @@ const AllyForm = () => {
                                 source={{ uri: `http://mantenimientoandino.co:3000/${item.avatar}` }}
                                 style={{ width: 200, height: 150, margin: 5 }}
                             />
-                            <Paragraph>National: {item.national}</Paragraph>
-                            <Paragraph>Active: {item.active}</Paragraph>
+                            <Paragraph>National: {item.national ? "True" : "False"}</Paragraph>
+                            <Paragraph>Active: {item.active ? "True" : "False"}</Paragraph>
                             {/* <View style={{margin:10}}>
                                 <Button title="Delete" onPress={() => handleDeletePost(item._id)}></Button>
                             </View> */}
@@ -337,7 +337,7 @@ const AllyForm = () => {
                             style={styles.input} 
                             onChangeText={(title_text) =>{
                                 // console.log("Título publicación",title_text);
-                                setNewAlly({...newAlly, clientName: title_text});
+                                setNewAlly({...newAlly, allyName: title_text});
                             }}
                         />
 

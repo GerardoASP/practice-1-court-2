@@ -32,8 +32,8 @@ export default function App() {
         <Stack.Screen name = "Posts" component={Posts} options={{ header: () => <CustomHeader /> }}/>
         <Stack.Screen name = "ImageComp" component={ImageComp}/>
         <Stack.Screen name = "ImagesComp" component={ImagesComp}/>
-        <Stack.Screen name = "ClientsForm" component={ClientsForm}/>
-        <Stack.Screen name = "AllyForm" component={AllyForm}/>
+        <Stack.Screen name = "ClientsForm" component={ClientsForm} options={{ header: () => <CustomHeader /> }}/>
+        <Stack.Screen name = "AllyForm" component={AllyForm} options={{ header: () => <CustomHeader /> }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
