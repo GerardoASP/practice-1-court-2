@@ -45,23 +45,33 @@ const AllyForm = () => {
         setShowImageComp(!showImageComp);
     };
 
-    const handleSwitchChangeActive = () => {
-        setIsActive(prevIsActive => {
-            const newIsActive = !prevIsActive;
-            console.log("Active value:", newIsActive);
-            setNewAlly({...newAlly, active: newIsActive});
-            return newIsActive;
-        });
-     }
+    // const handleSwitchChangeActive = () => {
+    //     setIsActive(prevIsActive => {
+    //         const newIsActive = !prevIsActive;
+    //         console.log("Active value:", newIsActive);
+    //         setNewAlly({...newAlly, active: newIsActive});
+    //         return newIsActive;
+    //     });
+    //  }
 
-     const handleSwitchChangeNational = () => {
-        setIsNational(prevIsNational => {
-            const newIsNational = !prevIsNational;
-            console.log("National value:", newIsNational);
-            setNewAlly({...newAlly, national: newIsNational});
-            return newIsNational;
-        });
-      };
+    // const handleSwitchChangeNational = () => {
+    //     setIsNational(prevIsNational => {
+    //         const newIsNational = !prevIsNational;
+    //         console.log("National value:", newIsNational);
+    //         setNewAlly({...newAlly, national: newIsNational});
+    //         return newIsNational;
+    //     });
+    // };
+
+    const handleSwitchChangeActive = () => {
+        setIsActive(!isActive);
+        // console.log(isActive)
+    };
+
+    const handleSwitchChangeNational = () => {
+        setIsNational(!isNational);
+        // console.log(isNational)
+    };
 
     useEffect(() => {
         if (selectedImageUris) {
@@ -75,6 +85,16 @@ const AllyForm = () => {
             setSelectedImageUri(null);
         }
     }, [selectedImageUri2]);
+
+    useEffect(() => {
+        console.log(isActive);
+        setNewAlly({...newAlly, active: isActive});
+    }, [isActive]);
+
+    useEffect(() => {
+        console.log(isNational);
+        setNewAlly({...newAlly, national: isNational});
+    }, [isNational]);
 
     const listsAllies = () => {
 
@@ -93,7 +113,7 @@ const AllyForm = () => {
     }, [alliesList])
 
 
-    const handleCreatePost = async () => {
+    const handleCreateAlly = async () => {
         const image = selectedImageUri;
         const images = selectedImageUris;
         const image2 = selectedImageUri2;
@@ -155,7 +175,7 @@ const AllyForm = () => {
                 const accessToken = await AsyncStorage.getItem("accessToken");
 
 
-                const allyResponse = await axios.post("http://mantenimientoandino.co:3000/api/v1/admin/clients/new-client", formData,{
+                const allyResponse = await axios.post("http://mantenimientoandino.co:3000/api/v1/admin/allies/new-ally", formData,{
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${accessToken}`
@@ -175,7 +195,7 @@ const AllyForm = () => {
                 const fileNameParts = image2.split('/');
                 imageName = fileNameParts[fileNameParts.length - 1];
                 
-                formData.append('allyName', newAlly.allyNameName);
+                formData.append('allyName', newAlly.allyName);
                 formData.append('active', newAlly.active); 
                 formData.append('national', newAlly.national);
 
@@ -215,7 +235,7 @@ const AllyForm = () => {
                 const accessToken = await AsyncStorage.getItem("accessToken");
 
 
-                const allyResponse = await axios.post("http://mantenimientoandino.co:3000/api/v1/admin/clients/new-client", formData,{
+                const allyResponse = await axios.post("http://mantenimientoandino.co:3000/api/v1/admin/allies/new-ally", formData,{
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${accessToken}`
@@ -268,7 +288,7 @@ const AllyForm = () => {
                         <Card.Content>
 
                             <View style={{flex: 1, justifyContent: "center", alignItems: "center", alignContent: "center"}}>
-                                <Title>Nombre: {item.clientName}</Title>
+                                <Title>Nombre: {item.allyName}</Title>
                             </View>
                             {/* <View style={{flex:0, justifyContent:"center", alignItems:"center"}}>
                                 <ScrollView horizontal={true} style={{width:200}}>
@@ -384,7 +404,7 @@ const AllyForm = () => {
                             {/* <Button
                                 title="Crear Post"
                                 onPress={() => {
-                                    handleCreatePost();
+                                    handleCreateAlly();
                                     setModalVisible(false);
                                 }}
                             /> */}
@@ -392,7 +412,7 @@ const AllyForm = () => {
                             <View>
                                 <TouchableOpacity 
                                     onPress={() => {
-                                        handleCreatePost();
+                                        handleCreateAlly();
                                         setModalVisible(false);
                                     }} 
                                     style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center'}}>

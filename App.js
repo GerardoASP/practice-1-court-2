@@ -15,6 +15,7 @@ import ImageComp from './src/screens/ImageComp';
 import ImagesComp from './src/screens/ImagesComp';
 import ClientsForm from './src/screens/ClientsForm';
 import AllyForm from './src/screens/AllyForm';
+import PrivacyPolicies from './src/screens/PrivacyPolicies';
 
 const Stack = createStackNavigator()
 
@@ -34,6 +35,7 @@ export default function App() {
         <Stack.Screen name = "ImagesComp" component={ImagesComp}/>
         <Stack.Screen name = "ClientsForm" component={ClientsForm} options={{ header: () => <CustomHeader /> }}/>
         <Stack.Screen name = "AllyForm" component={AllyForm} options={{ header: () => <CustomHeader /> }}/>
+        <Stack.Screen name = "PrivacyPolicies" component={PrivacyPolicies}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

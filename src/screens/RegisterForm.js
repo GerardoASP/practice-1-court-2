@@ -1,12 +1,15 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useState, useEffect } from 'react';
-import { Button, StyleSheet, Text, Switch, View } from 'react-native';
+import { Button, StyleSheet, Text, Switch, View, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Image, TouchableOpacity } from 'react-native';
-import { Card, IconButton, Icon, TextInput } from 'react-native-paper';
-import Checkbox from 'expo-checkbox';
+import { Card, IconButton, Icon, TextInput} from 'react-native-paper';
+import { Modal } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Checkbox from 'expo-checkbox';
+import PrivacyPolicies from './PrivacyPolicies';
+import { AntDesign } from '@expo/vector-icons';
 
 
 const RegisterForm = () => {
@@ -17,6 +20,10 @@ const RegisterForm = () => {
   // const [estaActivo, setEstaActivo] = useState(false);
   // const [isChecked, setIsChecked] = useState(false);
   const navigation = useNavigation();
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     // Verificar si el usuario está autenticado al cargar el componente
@@ -30,6 +37,14 @@ const RegisterForm = () => {
 
     checkAuthentication();
   }, []);
+
+  useEffect(() => {
+    console.log(isChecked);
+  }, [isChecked]);
+
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
 
 
   const [newUser, setNewUser] = useState({
@@ -67,7 +82,7 @@ const RegisterForm = () => {
     // };
 
     try {
-      const response = await axios.post('http://192.168.0.12:3000/api/v1/auth/register', newUser);
+      const response = await axios.post('http://mantenimientoandino.co:3000/api/v1/auth/register', newUser);
       console.log(response.data);
       navigation.navigate('LoginForm');
     } catch (error) {
@@ -146,6 +161,56 @@ const RegisterForm = () => {
           />
           <Text style={styles.checkboxLabel}>Acepto términos y condiciones</Text>
         </View> */}
+
+        <View style={{margin: 10}}>
+          <View style={styles.checkboxContainer}>
+            <Checkbox
+              value={isChecked}
+              onValueChange={handleCheckboxChange}
+            />
+            <Text style={styles.checkboxLabel}>He leído y acepto la política de privacidad</Text>
+          </View>
+
+          <TouchableOpacity
+            style={{ alignItems: 'center', paddingTop: 10 }}
+            onPress={() => setModalVisible(true)}
+          >
+            <Text style={{ color: "blue" }}>Ver Política de Privacidad</Text>
+          </TouchableOpacity>
+        </View>
+
+
+        <Modal
+          animationType="slide"
+          // transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+
+
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 70, backgroundColor: 'lightgray', justifyContent: "space-between" , padding: 20}}>
+            <View style={{ flexDirection: 'row'}}>
+                <TouchableOpacity onPress={handleGoBack}>
+                  <AntDesign name="arrowleft" size={30} color="black" />
+                </TouchableOpacity>
+            </View>
+          </View>
+
+
+          <ScrollView contentContainerStyle={styles.contentContainer}>
+            <PrivacyPolicies />
+
+            {/* <TouchableOpacity
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}
+            >
+              <Text>Esconder Política de Privacidad</Text>
+            </TouchableOpacity> */}
+          </ScrollView>
+        </Modal>
 
         <View style={styles.imageContainer}>
           <Image source={{ uri: 'https://logos-world.net/wp-content/uploads/2020/11/Gmail-Logo.png' }} style={styles.gmailImage}/>
@@ -247,6 +312,17 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flex: 1, // Cada botón toma el mismo espacio
     marginHorizontal: 10, // Espacio horizontal entre los botones
+  },
+  contentContainer: {
+    padding: 20
+  },
+  headerGoBack: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    height: 70,
+    backgroundColor: 'lightgray',
+    justifyContent: "space-between",
+    padding: 20
   },
 });
 

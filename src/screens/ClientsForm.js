@@ -29,12 +29,26 @@ const ClientsForm = () => {
 
     const [clientsList, setClientsLists] = useState([]);
     const [modalVisible, setModalVisible] = useState(false)
+
+
+
+
     const [newClient, setNewClient] = useState({
         clientName: "",
         national: "",
         avatar: "",
         active: false
     });
+
+    useEffect(() => {
+        console.log(isActive);
+        setNewClient({...newClient, active: isActive});
+    }, [isActive]);
+
+    useEffect(() => {
+        console.log(isNational);
+        setNewClient({...newClient, national: isNational});
+    }, [isNational]);
 
     const handleGoBack = () => {
         navigation.goBack();
@@ -46,15 +60,32 @@ const ClientsForm = () => {
   
     const handleSwitchChangeActive = () => {
         setIsActive(!isActive);
-        console.log(isActive)
-        setNewClient({...newClient, active: isActive});
+        // console.log(isActive)
     };
 
     const handleSwitchChangeNational = () => {
         setIsNational(!isNational);
-        console.log(isNational)
-        setNewClient({...newClient, national: isNational});
+        // console.log(isNational)
     };
+
+
+    // const handleSwitchChangeActive = () => {
+    //     setIsActive(prevIsActive => {
+    //         const newIsActive = !prevIsActive;
+    //         console.log("Active value:", newIsActive);
+    //         setNewClient({...newClient, active: isActive});
+    //         return newIsActive;
+    //     });
+    //  }
+
+    // const handleSwitchChangeNational = () => {
+    //     setIsNational(prevIsNational => {
+    //         const newIsNational = !prevIsNational;
+    //         console.log("National value:", newIsNational);
+    //         setNewClient({...newClient, national: isNational});
+    //         return newIsNational;
+    //     });
+    // };
 
     useEffect(() => {
         if (selectedImageUris) {
@@ -86,7 +117,7 @@ const ClientsForm = () => {
     }, [clientsList])
 
 
-    const handleCreatePost = async () => {
+    const handleCreateClient = async () => {
         const image = selectedImageUri;
         const images = selectedImageUris;
         const image2 = selectedImageUri2;
@@ -118,7 +149,7 @@ const ClientsForm = () => {
                     name: 'uploads/clients/'+imageName
                 });
 
-                newClient.avatar = 'uploads/clients/'+imageName
+                // newClient.avatar = 'uploads/clients/'+imageName
 
                 console.log('FormDataINDIVIDUAL----', formData)
 
@@ -144,6 +175,8 @@ const ClientsForm = () => {
                 // newClient.avatar = imagen; //PASA LAS NOMBRES ORIGINALES DE LAS FOTOS
 
                 // newClient.avatar = image2; // PASA LAS URIS TEMPORALES DE LAS FOTOS EN EL CELULAR
+                
+                
                 console.log(newClient);
                 const accessToken = await AsyncStorage.getItem("accessToken");
 
@@ -377,7 +410,7 @@ const ClientsForm = () => {
                             {/* <Button
                                 title="Crear Post"
                                 onPress={() => {
-                                    handleCreatePost();
+                                    handleCreateClient();
                                     setModalVisible(false);
                                 }}
                             /> */}
@@ -385,7 +418,7 @@ const ClientsForm = () => {
                             <View>
                                 <TouchableOpacity 
                                     onPress={() => {
-                                        handleCreatePost();
+                                        handleCreateClient();
                                         setModalVisible(false);
                                     }} 
                                     style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center'}}>
