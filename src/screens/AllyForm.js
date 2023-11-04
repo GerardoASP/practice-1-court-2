@@ -263,11 +263,18 @@ const AllyForm = () => {
     };
 
 
-    const handleDeleteAlly = (allyId) =>{
+    const handleDeleteAlly = async (allyId) =>{
+
+        const accessToken = await AsyncStorage.getItem("accessToken");
+
         console.log("allyId", allyId);
         const updatedAllies = alliesList.filter((ally) => ally._id !== allyId);
         setAlliesLists(updatedAllies);
-        axios.delete(`http://mantenimientoandino.co:3000/api/v1/admin/allies/${allyId}`)
+        axios.delete(`http://mantenimientoandino.co:3000/api/v1/admin/allies/${allyId}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+        })
         .then((response) => {
             console.log('Ally deleted', response.data)
         })

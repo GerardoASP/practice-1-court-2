@@ -269,11 +269,17 @@ const ClientsForm = () => {
     };
 
 
-    const handleDeleteClient = (clientId) =>{
+    const handleDeleteClient = async (clientId) =>{
+        const accessToken = await AsyncStorage.getItem("accessToken");
+
         console.log("clientId", clientId);
         const updatedClients = clientsList.filter((client) => client._id !== clientId);
         setClientsLists(updatedClients);
-        axios.delete(`http://mantenimientoandino.co:3000/api/v1/admin/clients/${clientId}`)
+        axios.delete(`http://mantenimientoandino.co:3000/api/v1/admin/clients/${clientId}`,{
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+        })
         .then((response) => {
             console.log('Client deleted', response.data)
         })

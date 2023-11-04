@@ -30,7 +30,7 @@ const PathComponent = () => {
           <Text style={styles.simple_text}>¿Que deseas hacer?</Text>
           <View style={styles.buttonsContainer}>
               <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => {navigation.navigate("PrivacyPolicies");}} /* style={styles.text_button} */ style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
+                <TouchableOpacity onPress={() => {}} /* style={styles.text_button} */ style={{shadowColor: '#000', alignItems: 'center', backgroundColor: '#4A90E2', padding: 10, textAlign:'center', fontWeight: 'bold'}}>
                   <Text style={{ color: '#FFF',fontWeight: 'bold'}}>Recorrido en la App</Text>
                 </TouchableOpacity>
                 {/* <Button title="Iniciar Sesión" onPress={login} /> */}
